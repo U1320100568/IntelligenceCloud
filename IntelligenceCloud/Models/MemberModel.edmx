@@ -1,0 +1,525 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="IntelligenceCloudModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Attachment">
+          <Key>
+            <PropertyRef Name="AttachmentId" />
+          </Key>
+          <Property Name="AttachmentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AttachmentPath" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="AttachmentName" Type="nvarchar" MaxLength="60" />
+          <Property Name="AttachmentOriginName" Type="nvarchar" MaxLength="50" />
+          <Property Name="AttachmentType" Type="nvarchar" MaxLength="20" />
+          <Property Name="AttachmentUse" Type="nvarchar" MaxLength="20" />
+          <Property Name="MemberId" Type="int" />
+          <Property Name="MemberShared" Type="nvarchar" MaxLength="300" />
+          <Property Name="isDeleted" Type="bit" />
+          <Property Name="UploadTime" Type="datetime" />
+          <Property Name="DeletedTime" Type="datetime" />
+          <Property Name="DownloadTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="AttachmentRecord">
+          <Key>
+            <PropertyRef Name="AttachmentRecordId" />
+          </Key>
+          <Property Name="AttachmentRecordId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AttachmentId" Type="int" Nullable="false" />
+          <Property Name="TimeDownload" Type="datetime" />
+        </EntityType>
+        <EntityType Name="CommunRecord">
+          <Key>
+            <PropertyRef Name="CPhoneRecordId" />
+          </Key>
+          <Property Name="CPhoneRecordId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AttachmentId" Type="int" Nullable="false" />
+          <Property Name="IdCardNum" Type="nvarchar" MaxLength="20" />
+          <Property Name="CPhoneNum" Type="nvarchar" MaxLength="30" />
+          <Property Name="CCorrePhoneNum" Type="nvarchar" MaxLength="30" />
+          <Property Name="CThroughPhoneNum" Type="nvarchar" MaxLength="30" />
+          <Property Name="CType" Type="nvarchar" MaxLength="10" />
+          <Property Name="CStartTime" Type="datetime" />
+          <Property Name="CEndTime" Type="datetime" />
+          <Property Name="CIMEI" Type="nvarchar" MaxLength="20" />
+          <Property Name="CStationNum" Type="nvarchar" MaxLength="20" />
+          <Property Name="CStationAddress" Type="nvarchar" MaxLength="100" />
+          <Property Name="isDeleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="Feature">
+          <Key>
+            <PropertyRef Name="FeatureId" />
+          </Key>
+          <Property Name="FeatureId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FName" Type="nvarchar" MaxLength="30" />
+          <Property Name="ControllerName" Type="nvarchar" MaxLength="40" />
+          <Property Name="ActionName" Type="nvarchar" MaxLength="40" />
+          <Property Name="UpdaterId" Type="int" />
+          <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="isDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ForensicContact">
+          <Key>
+            <PropertyRef Name="ForensicContactID" />
+          </Key>
+          <Property Name="ForensicContactID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AttachmentId" Type="int" />
+          <Property Name="FSheetNum" Type="int" />
+          <Property Name="FSheetName" Type="nvarchar" MaxLength="20" />
+          <Property Name="FNum" Type="int" />
+          <Property Name="FName" Type="nvarchar" MaxLength="40" />
+          <Property Name="FGroup" Type="nvarchar" MaxLength="40" />
+          <Property Name="FModifiedTime" Type="datetime" />
+          <Property Name="FClause" Type="nvarchar" MaxLength="400" />
+          <Property Name="FNote" Type="nvarchar" MaxLength="1000" />
+          <Property Name="FSource" Type="nvarchar" MaxLength="30" />
+          <Property Name="isDeleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="ForensicSMS">
+          <Key>
+            <PropertyRef Name="ForensicSMSID" />
+          </Key>
+          <Property Name="ForensicSMSID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AttachmentId" Type="int" />
+          <Property Name="FSheetNum" Type="int" />
+          <Property Name="FSheetName" Type="nvarchar" MaxLength="20" />
+          <Property Name="FNum" Type="int" />
+          <Property Name="FCorrespond" Type="nvarchar" MaxLength="70" />
+          <Property Name="FDatetime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Member">
+          <Key>
+            <PropertyRef Name="MemberId" />
+          </Key>
+          <Property Name="MemberId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MemberAccount" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="MemberName" Type="nvarchar" MaxLength="20" />
+          <Property Name="MemberPwd" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="isDeleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="People">
+          <Key>
+            <PropertyRef Name="PeopleId" />
+          </Key>
+          <Property Name="PeopleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PeopleName" Type="nvarchar" MaxLength="30" />
+          <Property Name="IdCardNum" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RName" Type="nvarchar" MaxLength="30" />
+          <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="UpdaterId" Type="int" />
+          <Property Name="RLock" Type="bit" Nullable="false" />
+          <Property Name="isDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RoleFeature">
+          <Key>
+            <PropertyRef Name="RFNum" />
+          </Key>
+          <Property Name="RFNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="FeatureId" Type="int" Nullable="false" />
+          <Property Name="UpdaterId" Type="int" />
+          <Property Name="UpdateDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="RoleMember">
+          <Key>
+            <PropertyRef Name="RMNum" />
+          </Key>
+          <Property Name="RMNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="MemberId" Type="int" Nullable="false" />
+          <Property Name="UpdaterId" Type="int" />
+          <Property Name="UpdateDate" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_AttachmentRecord_Attachment">
+          <End Role="Attachment" Type="Self.Attachment" Multiplicity="1" />
+          <End Role="AttachmentRecord" Type="Self.AttachmentRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Attachment">
+              <PropertyRef Name="AttachmentId" />
+            </Principal>
+            <Dependent Role="AttachmentRecord">
+              <PropertyRef Name="AttachmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="GetRoleAndFeature" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MemberId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetRoleAndMember" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="RoleNum" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="IntelligenceCloudModelStoreContainer">
+          <EntitySet Name="Attachment" EntityType="Self.Attachment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AttachmentRecord" EntityType="Self.AttachmentRecord" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CommunRecord" EntityType="Self.CommunRecord" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Feature" EntityType="Self.Feature" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ForensicContact" EntityType="Self.ForensicContact" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ForensicSMS" EntityType="Self.ForensicSMS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Member" EntityType="Self.Member" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="People" EntityType="Self.People" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RoleFeature" EntityType="Self.RoleFeature" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RoleMember" EntityType="Self.RoleMember" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AttachmentRecord_Attachment" Association="Self.FK_AttachmentRecord_Attachment">
+            <End Role="Attachment" EntitySet="Attachment" />
+            <End Role="AttachmentRecord" EntitySet="AttachmentRecord" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="IntelligenceCloudModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="IntelligenceCloudEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AttachmentRecord" EntityType="IntelligenceCloudModel.AttachmentRecord" />
+          <EntitySet Name="People" EntityType="IntelligenceCloudModel.People" />
+          <EntitySet Name="CommunRecord" EntityType="IntelligenceCloudModel.CommunRecord" />
+          <EntitySet Name="ForensicSMS" EntityType="IntelligenceCloudModel.ForensicSMS" />
+          <EntitySet Name="ForensicContact" EntityType="IntelligenceCloudModel.ForensicContact" />
+          <EntitySet Name="Feature" EntityType="IntelligenceCloudModel.Feature" />
+          <EntitySet Name="Member" EntityType="IntelligenceCloudModel.Member" />
+          <EntitySet Name="Role" EntityType="IntelligenceCloudModel.Role" />
+          <EntitySet Name="RoleFeature" EntityType="IntelligenceCloudModel.RoleFeature" />
+          <EntitySet Name="RoleMember" EntityType="IntelligenceCloudModel.RoleMember" />
+          <FunctionImport Name="GetRoleAndFeature">
+          <Parameter Name="MemberId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetRoleAndMember">
+          <Parameter Name="RoleNum" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="Attachment" EntityType="IntelligenceCloudModel.Attachment" />
+          <AssociationSet Name="FK_AttachmentRecord_Attachment" Association="IntelligenceCloudModel.FK_AttachmentRecord_Attachment">
+            <End Role="Attachment" EntitySet="Attachment" />
+            <End Role="AttachmentRecord" EntitySet="AttachmentRecord" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="AttachmentRecord">
+          <Key>
+            <PropertyRef Name="AttachmentRecordId" />
+          </Key>
+          <Property Name="AttachmentRecordId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AttachmentId" Type="Int32" Nullable="false" />
+          <Property Name="TimeDownload" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Attachment" Relationship="IntelligenceCloudModel.FK_AttachmentRecord_Attachment" FromRole="AttachmentRecord" ToRole="Attachment" />
+          </EntityType>
+        <EntityType Name="People">
+          <Key>
+            <PropertyRef Name="PeopleId" />
+          </Key>
+          <Property Name="PeopleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PeopleName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="IdCardNum" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CommunRecord">
+          <Key>
+            <PropertyRef Name="CPhoneRecordId" />
+          </Key>
+          <Property Name="CPhoneRecordId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AttachmentId" Type="Int32" Nullable="false" />
+          <Property Name="IdCardNum" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CPhoneNum" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="CCorrePhoneNum" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="CThroughPhoneNum" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="CType" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="CStartTime" Type="DateTime" Precision="3" />
+          <Property Name="CEndTime" Type="DateTime" Precision="3" />
+          <Property Name="CIMEI" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CStationNum" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CStationAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="isDeleted" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="ForensicSMS">
+          <Key>
+            <PropertyRef Name="ForensicSMSID" />
+          </Key>
+          <Property Name="ForensicSMSID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AttachmentId" Type="Int32" />
+          <Property Name="FSheetNum" Type="Int32" />
+          <Property Name="FSheetName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="FNum" Type="Int32" />
+          <Property Name="FCorrespond" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+          <Property Name="FDatetime" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="ForensicContact">
+          <Key>
+            <PropertyRef Name="ForensicContactID" />
+          </Key>
+          <Property Name="ForensicContactID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AttachmentId" Type="Int32" />
+          <Property Name="FSheetNum" Type="Int32" />
+          <Property Name="FSheetName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="FNum" Type="Int32" />
+          <Property Name="FName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="FGroup" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="FModifiedTime" Type="DateTime" Precision="3" />
+          <Property Name="FClause" Type="String" MaxLength="400" FixedLength="false" Unicode="true" />
+          <Property Name="FNote" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="FSource" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="isDeleted" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Feature">
+          <Key>
+            <PropertyRef Name="FeatureId" />
+          </Key>
+          <Property Name="FeatureId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="ControllerName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="ActionName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="UpdaterId" Type="Int32" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="isDeleted" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Member">
+          <Key>
+            <PropertyRef Name="MemberId" />
+          </Key>
+          <Property Name="MemberId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemberAccount" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="MemberName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="MemberPwd" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="isDeleted" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdaterId" Type="Int32" />
+          <Property Name="RLock" Type="Boolean" Nullable="false" />
+          <Property Name="isDeleted" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RoleFeature">
+          <Key>
+            <PropertyRef Name="RFNum" />
+          </Key>
+          <Property Name="RFNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="FeatureId" Type="Int32" Nullable="false" />
+          <Property Name="UpdaterId" Type="Int32" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="RoleMember">
+          <Key>
+            <PropertyRef Name="RMNum" />
+          </Key>
+          <Property Name="RMNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="MemberId" Type="Int32" Nullable="false" />
+          <Property Name="UpdaterId" Type="Int32" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Attachment">
+          <Key>
+            <PropertyRef Name="AttachmentId" />
+          </Key>
+          <Property Name="AttachmentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AttachmentPath" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="AttachmentName" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="AttachmentOriginName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AttachmentType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="AttachmentUse" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="MemberId" Type="Int32" />
+          <Property Name="MemberShared" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="isDeleted" Type="Boolean" />
+          <Property Name="UploadTime" Type="DateTime" Precision="3" />
+          <Property Name="DeletedTime" Type="DateTime" Precision="3" />
+          <Property Name="DownloadTime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="AttachmentRecord" Relationship="IntelligenceCloudModel.FK_AttachmentRecord_Attachment" FromRole="Attachment" ToRole="AttachmentRecord" />
+        </EntityType>
+        <Association Name="FK_AttachmentRecord_Attachment">
+          <End Type="IntelligenceCloudModel.Attachment" Role="Attachment" Multiplicity="1" />
+          <End Type="IntelligenceCloudModel.AttachmentRecord" Role="AttachmentRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Attachment">
+              <PropertyRef Name="AttachmentId" />
+            </Principal>
+            <Dependent Role="AttachmentRecord">
+              <PropertyRef Name="AttachmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="IntelligenceCloudModelStoreContainer" CdmEntityContainer="IntelligenceCloudEntities">
+          <EntitySetMapping Name="AttachmentRecord">
+            <EntityTypeMapping TypeName="IntelligenceCloudModel.AttachmentRecord">
+              <MappingFragment StoreEntitySet="AttachmentRecord">
+                <ScalarProperty Name="TimeDownload" ColumnName="TimeDownload" />
+                <ScalarProperty Name="AttachmentId" ColumnName="AttachmentId" />
+                <ScalarProperty Name="AttachmentRecordId" ColumnName="AttachmentRecordId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="People">
+            <EntityTypeMapping TypeName="IntelligenceCloudModel.People">
+              <MappingFragment StoreEntitySet="People">
+                <ScalarProperty Name="IdCardNum" ColumnName="IdCardNum" />
+                <ScalarProperty Name="PeopleName" ColumnName="PeopleName" />
+                <ScalarProperty Name="PeopleId" ColumnName="PeopleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CommunRecord">
+            <EntityTypeMapping TypeName="IntelligenceCloudModel.CommunRecord">
+              <MappingFragment StoreEntitySet="CommunRecord">
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+                <ScalarProperty Name="CStationAddress" ColumnName="CStationAddress" />
+                <ScalarProperty Name="CStationNum" ColumnName="CStationNum" />
+                <ScalarProperty Name="CIMEI" ColumnName="CIMEI" />
+                <ScalarProperty Name="CEndTime" ColumnName="CEndTime" />
+                <ScalarProperty Name="CStartTime" ColumnName="CStartTime" />
+                <ScalarProperty Name="CType" ColumnName="CType" />
+                <ScalarProperty Name="CThroughPhoneNum" ColumnName="CThroughPhoneNum" />
+                <ScalarProperty Name="CCorrePhoneNum" ColumnName="CCorrePhoneNum" />
+                <ScalarProperty Name="CPhoneNum" ColumnName="CPhoneNum" />
+                <ScalarProperty Name="IdCardNum" ColumnName="IdCardNum" />
+                <ScalarProperty Name="AttachmentId" ColumnName="AttachmentId" />
+                <ScalarProperty Name="CPhoneRecordId" ColumnName="CPhoneRecordId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ForensicSMS">
+            <EntityTypeMapping TypeName="IntelligenceCloudModel.ForensicSMS">
+              <MappingFragment StoreEntitySet="ForensicSMS">
+                <ScalarProperty Name="FDatetime" ColumnName="FDatetime" />
+                <ScalarProperty Name="FCorrespond" ColumnName="FCorrespond" />
+                <ScalarProperty Name="FNum" ColumnName="FNum" />
+                <ScalarProperty Name="FSheetName" ColumnName="FSheetName" />
+                <ScalarProperty Name="FSheetNum" ColumnName="FSheetNum" />
+                <ScalarProperty Name="AttachmentId" ColumnName="AttachmentId" />
+                <ScalarProperty Name="ForensicSMSID" ColumnName="ForensicSMSID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ForensicContact">
+            <EntityTypeMapping TypeName="IntelligenceCloudModel.ForensicContact">
+              <MappingFragment StoreEntitySet="ForensicContact">
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+                <ScalarProperty Name="FSource" ColumnName="FSource" />
+                <ScalarProperty Name="FNote" ColumnName="FNote" />
+                <ScalarProperty Name="FClause" ColumnName="FClause" />
+                <ScalarProperty Name="FModifiedTime" ColumnName="FModifiedTime" />
+                <ScalarProperty Name="FGroup" ColumnName="FGroup" />
+                <ScalarProperty Name="FName" ColumnName="FName" />
+                <ScalarProperty Name="FNum" ColumnName="FNum" />
+                <ScalarProperty Name="FSheetName" ColumnName="FSheetName" />
+                <ScalarProperty Name="FSheetNum" ColumnName="FSheetNum" />
+                <ScalarProperty Name="AttachmentId" ColumnName="AttachmentId" />
+                <ScalarProperty Name="ForensicContactID" ColumnName="ForensicContactID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Feature">
+            <EntityTypeMapping TypeName="IntelligenceCloudModel.Feature">
+              <MappingFragment StoreEntitySet="Feature">
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UpdaterId" ColumnName="UpdaterId" />
+                <ScalarProperty Name="ActionName" ColumnName="ActionName" />
+                <ScalarProperty Name="ControllerName" ColumnName="ControllerName" />
+                <ScalarProperty Name="FName" ColumnName="FName" />
+                <ScalarProperty Name="FeatureId" ColumnName="FeatureId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Member">
+            <EntityTypeMapping TypeName="IntelligenceCloudModel.Member">
+              <MappingFragment StoreEntitySet="Member">
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+                <ScalarProperty Name="MemberPwd" ColumnName="MemberPwd" />
+                <ScalarProperty Name="MemberName" ColumnName="MemberName" />
+                <ScalarProperty Name="MemberAccount" ColumnName="MemberAccount" />
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role">
+            <EntityTypeMapping TypeName="IntelligenceCloudModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+                <ScalarProperty Name="RLock" ColumnName="RLock" />
+                <ScalarProperty Name="UpdaterId" ColumnName="UpdaterId" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="RName" ColumnName="RName" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoleFeature">
+            <EntityTypeMapping TypeName="IntelligenceCloudModel.RoleFeature">
+              <MappingFragment StoreEntitySet="RoleFeature">
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UpdaterId" ColumnName="UpdaterId" />
+                <ScalarProperty Name="FeatureId" ColumnName="FeatureId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="RFNum" ColumnName="RFNum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoleMember">
+            <EntityTypeMapping TypeName="IntelligenceCloudModel.RoleMember">
+              <MappingFragment StoreEntitySet="RoleMember">
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UpdaterId" ColumnName="UpdaterId" />
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="RMNum" ColumnName="RMNum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetRoleAndFeature" FunctionName="IntelligenceCloudModel.Store.GetRoleAndFeature" />
+          <FunctionImportMapping FunctionImportName="GetRoleAndMember" FunctionName="IntelligenceCloudModel.Store.GetRoleAndMember" />
+          <EntitySetMapping Name="Attachment">
+            <EntityTypeMapping TypeName="IntelligenceCloudModel.Attachment">
+              <MappingFragment StoreEntitySet="Attachment">
+                <ScalarProperty Name="DownloadTime" ColumnName="DownloadTime" />
+                <ScalarProperty Name="DeletedTime" ColumnName="DeletedTime" />
+                <ScalarProperty Name="UploadTime" ColumnName="UploadTime" />
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+                <ScalarProperty Name="MemberShared" ColumnName="MemberShared" />
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="AttachmentUse" ColumnName="AttachmentUse" />
+                <ScalarProperty Name="AttachmentType" ColumnName="AttachmentType" />
+                <ScalarProperty Name="AttachmentOriginName" ColumnName="AttachmentOriginName" />
+                <ScalarProperty Name="AttachmentName" ColumnName="AttachmentName" />
+                <ScalarProperty Name="AttachmentPath" ColumnName="AttachmentPath" />
+                <ScalarProperty Name="AttachmentId" ColumnName="AttachmentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

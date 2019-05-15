@@ -1,0 +1,159 @@
+﻿@model IEnumerable<IntelligenceCloud.Models.Member>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>管理會員</h2>
+<h2>@ViewBag.Msg</h2>
+<p></p>
+<div class=" container-member-list" data-ripple="rgba(2,35,200,0.3)">
+    <div class="row btn-toolbar btn-container" role="toolbar">
+        <div class="btn-group btn-item" role="group">
+            <button type="button" class=" btn btn-default createEdit radius-btn" data_method = "新增"> 新增 </button>
+        </div>
+        <div class="btn-group btn-item" role="group">
+            &nbsp;
+        </div>
+        <div class="input-group btn-item" role="group">
+
+            @using (Html.BeginForm("Search", "Members", FormMethod.Get))
+        {
+
+            <div class="input-group btn-container">
+                @Html.TextBox("searchString", "", htmlAttributes: new { placeholder = "搜尋", @class = "form-control btn-item" })
+
+                <span class="input-group-btn btn-item">
+                    <button type="submit" class="btn btn-info ">
+                        <i class="glyphicon glyphicon-search"> </i>
+                    </button>
+                </span>
+            </div>
+
+    }
+        </div>
+    </div>
+
+    <div class="row">
+        <table class="table">
+
+            <tr >
+                <th>
+                    @Html.DisplayNameFor(model => model.MemberAccount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MemberName)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MemberAccount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MemberName)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.MemberId }, new { @class = "createEdit", data_memberid = item.MemberId ,data_method = "修改"}) |
+                        @Html.ActionLink("Details", "Details", new { id = item.MemberId }, new { @class = "createEdit ", data_memberid = item.MemberId, data_method = "查看" }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.MemberId }, new { @class = "delete" ,data_memberid = item.MemberId})
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1"  role="dialog" id="memberModal">
+</div>
+
+@section scripts{
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $(".createEdit").click(function () {
+            event.preventDefault();
+            var id = $(this).data("memberid");
+            var method = $(this).data("method");
+            $.get('@Url.Action("CreateEdit")' + '/' + id, function (temp) {
+                $('#memberModal').html(temp);
+                $('#memberModal').modal('show');
+
+                $('#memberModal').find('h4').text(method);
+                if (method == "查看") { $('#memberModal').find("input").attr("disabled", 'disabled'); }
+            });
+        });
+
+        $(".delete").click(function () {
+            event.preventDefault();
+            var id = $(this).data("memberid");
+            var element = $(this);
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("Delete")',
+                data: JSON.stringify({ 'id': id }),
+                contentType: "application/json"
+            })
+                .done(function (temp) {
+                    var td = element.closest("tr").find("td")
+                    let div = td.wrapInner('<div  />').parent().find('td > div');
+                    div.css({ "white-space": "nowrap", "padding":'0px',"margin":"0px"});
+                    div.animate({ width: '0px' }, 1000);
+                    element.closest("tr").hide(1000, function () { $(this).remove(); })
+                        
+                    
+            })
+            .fail(function (err) {
+               
+            })
+            ;
+
+           
+        });
+
+        $("[data-ripple]").mousedown(function (e) {
+            var $self = $(this);
+
+            if ($self.closest("[data-ripple]")) {
+                e.stopPropagation();
+            }
+
+            var iniPos = $self.css("position"),
+                offs = $self.offset(),
+                x = e.pageX - offs.left,
+                y = e.pageY - offs.top,
+                dia = Math.min(this.offsetHeight, this.offsetWidth, 100),
+                $ripple = $('<div/>', { class: "ripple", appendTo: $self });
+            
+
+            if (!iniPos || iniPos === "static") {
+                $self.css({ position: "relative" });
+            }
+
+            $('<div/>', {
+                class: "rippleWave",
+                css: {
+                    background: $self.data("ripple"),//
+                    width: dia,
+                    height: dia,
+                    left: x - (dia / 2),
+                    top: y - (dia / 2)
+                },
+                appendTo: $ripple,
+                one: {
+                    animationend: function () {
+                        $ripple.remove();
+                    }
+                }
+            })
+        })
+    });
+
+</script>
+    
+}

@@ -1,0 +1,88 @@
+﻿@using IntelligenceCloud.Helpers
+
+<ul class="nav navbar-nav">
+
+
+    @if (FeatureHelper.GetFeature(IdentityHelper.UserId) != null)
+    {
+        <li>@IdentityHelper.UserId</li>
+        foreach (var feature in FeatureHelper.GetFeature(IdentityHelper.UserId))
+        {
+
+            if (feature.ControllerName == "Roles" || feature.ControllerName == "Features")
+            {
+                continue;
+            }
+            else
+            {
+                <li>@Html.ActionLink(feature.FName, "Index", feature.ControllerName)</li>
+            }
+
+
+        }
+        <li>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+
+                權限配置
+                <b class="caret"></b>
+                <ul class="dropdown-menu ">
+
+                    <li>@Html.ActionLink("權限列表", "Index", "Roles") </li>
+                    <li>@Html.ActionLink("功能列表", "Index", "Features")</li>
+                    <li>@Html.ActionLink("功能與角色配置", "EditRoleFeature", "Roles")</li>
+                    <li>@Html.ActionLink("會員與角色配置", "EditRoleMember", "Roles")</li>
+
+
+                </ul>
+            </a>
+        </li>
+
+    }
+
+
+
+
+    @*<li>@Html.ActionLink("附件", "Index", "Attachments")</li>
+        <li>@Html.ActionLink("會員", "Index", "Members")</li>
+        <li>@Html.ActionLink("權限列表", "Index", "Roles")</li>
+        <li>@Html.ActionLink("功能列表", "Index", "Features")</li>
+        <li>@Html.ActionLink("功能與角色配置", "EditRoleFeature", "Roles")</li>
+        <li>@Html.ActionLink("會員與角色配置", "EditRoleMember", "Roles")</li>*@
+
+
+
+
+
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <li>@Html.ActionLink("登出", "Logout", "Home")</li>
+    }
+    else
+    {
+        <li>@Html.ActionLink("登入", "Login", "Home")</li>
+    }
+
+
+
+
+</ul>
+@if (IdentityHelper.UserName != string.Empty)
+{
+    <ul class="nav navbar-nav navbar-right ">
+        <li>
+
+            <a href="#" onclick="return false" style="color:#6d999b ;cursor:default" class="">
+                @IdentityHelper.UserName |
+                <span style="font-size:small" id="date">現在時間</span>
+            </a>
+        </li>
+
+    </ul>
+}
+@Scripts.Render("~/bundles/jquery")
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#date").text(new Date().toLocaleDateString());
+    })
+</script>

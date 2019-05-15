@@ -1,0 +1,118 @@
+﻿@model IEnumerable<IntelligenceCloud.Models.CommunRecord>
+
+
+
+@{
+    ViewBag.Title = "CommunRecord";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    IntelligenceCloud.Models.CommunRecord c = new IntelligenceCloud.Models.CommunRecord();
+
+}
+
+<h2>CommunRecord</h2>
+<div class="row">
+    <div class="col-md-4">
+        @Html.ActionLink("返回檔案詳細", "Details", "Attachments", new { id = Model.FirstOrDefault().AttachmentId }, "")
+    </div>
+    <div class="col-md-6">
+        @Html.PagedListPager((IPagedList)Model, x => Url.Action("Index", new { page = x }))
+    </div>
+    <div class="col-md-2">
+        @Html.ActionLink("下載資料庫的檔案", "Download", "CommunRecords", new { id = Model.FirstOrDefault().AttachmentId }, new { @class = "btn btn-default pull-right" })
+    </div>
+</div>
+
+<table class="table">
+    <tr>
+
+
+        <th>
+            @Html.DisplayNameFor(model => model.CPhoneNum)
+            <a href='@Url.Action("Index", new { orderer = c.GetType().GetProperty("CPhoneNum").Name })'><label class="caret"></label></a>
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CCorrePhoneNum)
+            <a href='@Url.Action("Index", new { orderer = c.GetType().GetProperty("CCorrePhoneNum").Name })'><label class="caret"></label></a>
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CThroughPhoneNum)
+            <a href='@Url.Action("Index", new { orderer = c.GetType().GetProperty("CThroughPhoneNum").Name })'><label class="caret"></label></a>
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CType)
+            <a href='@Url.Action("Index", new { orderer = c.GetType().GetProperty("CType").Name })'><label class="caret"></label></a>
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CStartTime)
+            <a href='@Url.Action("Index", new { orderer = c.GetType().GetProperty("CStartTime").Name })'><label class="caret"></label></a>
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CEndTime)
+            <a href='@Url.Action("Index", new { orderer = c.GetType().GetProperty("CEndTime").Name })'><label class="caret"></label></a>
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CIMEI)
+            <a href='@Url.Action("Index", new { orderer = c.GetType().GetProperty("CIMEI").Name })'><label class="caret"></label></a>
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CStationNum)
+            <a href='@Url.Action("Index", new { orderer = c.GetType().GetProperty("CStationNum").Name })'><label class="caret"></label></a>
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CStationAddress)
+            <a href='@Url.Action("Index", new { orderer = c.GetType().GetProperty("CStationAddress").Name })'><label class="caret"></label></a>
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CPhoneNum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CCorrePhoneNum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CThroughPhoneNum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CStartTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CEndTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CIMEI)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CStationNum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CStationAddress)
+            </td>
+
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.CPhoneRecordId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.CPhoneRecordId })
+            </td>
+        </tr>
+    }
+
+</table>
+@Html.ActionLink("返回檔案詳細", "Details", "Attachments", new { id = Model.FirstOrDefault().AttachmentId }, "")
+
+@section scripts{
+    @Scripts.Render("~/bundles/customJs")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            tableColumnSort('@ViewBag.OrderAscend', '@ViewBag.Orderer');
+
+        });
+    </script>
+}

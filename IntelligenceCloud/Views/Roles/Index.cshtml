@@ -1,0 +1,86 @@
+﻿@model IEnumerable<IntelligenceCloud.Models.Role>
+@using IntelligenceCloud.Helpers
+@{
+    ViewBag.Title = "權限列表";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>權限列表</h2>
+
+
+<button type="button" class="btn btn-default edit" data-button="@null">新增</button>
+<table class="table">
+
+
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.RName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RLock)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdaterId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdateDate)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.RName)
+        </td>
+        <td>
+            @(item.RLock == true?"YES":"NO")
+        </td>
+        <td>
+            @Html.DisplayName( IdentityHelper.GetMemberName(item.UpdaterId) )
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpdateDate)
+        </td>
+        <td>
+
+
+            @using (Html.BeginForm("Delete", "Roles", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.Hidden("id", item.RoleId)
+            <button type="button" class="btn btn-default edit" data-button="@item.RoleId">編輯</button>
+            <input type="submit" class="btn btn-danger" value="刪除" />
+    }
+
+        </td>
+    </tr>
+    }
+
+</table>
+
+<div id="partialarea">
+    <div class="modal fade" tabindex="-1" role="dialog" id="edit">
+        <div id="editcontainer"></div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("button.edit").click(function () {
+                //回傳partial view 填到modal，並show出來
+                var id = $(this).data('button');
+                $.get("/Roles/CreateEdit"+'/'+id, function (temp) {
+                    $("#editcontainer").html(temp);
+                })
+                $("#edit").modal("show");
+            })
+
+
+        });
+    </script>
+}
+
+
